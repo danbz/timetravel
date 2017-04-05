@@ -1,0 +1,60 @@
+html, body
+{
+    margin:0;
+    padding:0;
+    font-family: "fonts/RobotoCondensed-Light.ttf";
+    background-color: #F0F0F0 !important;
+    color: #666;
+}
+
+#dilationInterface, div[data-role="content"]
+{
+    top:0 !important;
+    left:0 !important;
+}
+
+.row
+{
+    text-align: center;
+}
+
+.label
+{
+    font-size: 65px;
+    margin-top: 100px;
+    display: block;
+}
+
+.value
+{
+    font-size: 100px;
+    display: block;
+    margin-bottom: 100px;
+}
+
+.ui-page
+{
+    background-color: #F0F0F0 !important;
+}
+
+#chart
+{
+    margin-left: 100px;
+}
+
+.ui-content {
+    padding: 0em;
+}
+
+#navigationTip
+{
+    font-size: 97px;
+    color: #666;
+    margin: 0 auto;
+    text-align: center;
+    width: 100%;
+    display: block;
+    position: absolute;
+    bottom: 122px;
+}
+

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<!--
+  * Please see the included README.md file for license terms and conditions.
+  -->
+<head>
+    <title>Blank HTML</title>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=0, user-scalable=no">
+
+    <!-- This is a blank template, include any desired javascript frameworks, libraries, CSS here and start developing the app  -->
+
+    <!-- IMPORTANT: Do not include your weinre script tag as part of your release builds! -->
+    <!-- Place your remote debugging (weinre) script URL from the Test tab here, if it does not work below -->
+    <!-- <script src="http://debug-software.intel.com/target/target-script-min.js#insertabiglongfunkynumberfromthexdkstesttab"></script> -->
+
+    <script src="intelxdk.js"></script>         <!-- phantom library, needed for Intel XDK api calls -->
+    <script src="cordova.js"></script>          <!-- phantom library, needed for Cordova api calls -->
+    <script src="xhr.js"></script>              <!-- phantom library, needed for Intel XDK CORS -->
+    
+    <script src="js/dilation.js"></script>
+    <script src="js/jprocessingjs-0.9.min.js"></script>
+    <script src="js/processing.min.js"></script>
+    <script src="js/jquery-1.11.2.min.js"></script>
+    <!-- script src="js/bootstrap.min.js"></script -->
+    <!-- script src="js/touchswipe.min.js"></script -->
+    <script src="js/jquery.mobile.min.js"></script>
+    <script src="js/moment.js"></script>
+    <script src="js/chart.min.js"></script>
+    <script src="js/TimeTravel.js"></script>
+    
+    
+    <!-- <script src="js/app.js"></script> -->  <!-- recommended location of your JavaScript code relative to other JS files -->
+
+    <!-- IMPORTANT: Do not include your weinre script tag as part of your release builds! -->
+    <!-- Place your remote debugging (weinre) script URL from the Test tab here, if it does not work above or below -->
+    <!-- <script src="http://debug-software.intel.com/target/target-script-min.js#insertabiglongfunkynumberfromthexdkstesttab"></script> -->
+
+    <script>
+        function onDeviceReady() {
+            if( navigator.splashscreen && navigator.splashscreen.hide ) {   // Cordova API detected
+                navigator.splashscreen.hide() ;
+            }
+            if( window.intel && intel.xdk && intel.xdk.device ) {           // Intel XDK device API detected, but...
+                if( intel.xdk.device.hideSplashScreen )                     // ...hideSplashScreen() is inside the base plugin
+                    intel.xdk.device.hideSplashScreen() ;
+            }
+            
+            timeTravel.init();
+            intel.xdk.device.managePower(true,false);
+            intel.xdk.device.addVirtualPage();
+        }
+        document.addEventListener("deviceready", onDeviceReady, false) ;
+        document.addEventListener("intel.xdk.device.hardware.back", function() {
+            navigator.app.exitApp();
+        }, false);
+    </script>
+    <!-- link href="css/bootstrap.min.css" rel="stylesheet"/ -->
+    <!-- link href="css/bootstrap-theme.min.css" rel="stylesheet"/ -->
+    <link href="css/jquery.mobile.css" rel="stylesheet"/>
+    <link href="css/timetravel.css" rel="stylesheet" />
+</head>
+<body>
+    <!-- Add your HTML here -->
+    <div data-role="page" id="main">
+        <div data-role="content">
+          <canvas id="dilationInterface" data-processing-sources="processing/TimeTravel.pde processing/SoftFloat.pde"></canvas>  
+        </div>
+    </div>
+    <div data-role="page" id="total">
+        <div data-role="content">
+            <div id="ac_dil">
+                <div class="row">
+                    <span class="label">Accumulated dilation: </span><span id="accumulatedDilation" class="value"></span>
+                </div>
+                <div class="row">
+                    <span class="label">Maximum dilation: </span><span id="maxDilation" class="value"></span>
+                </div>
+                <div class="row">
+                    <span class="label">Maximum speed: </span><span id="maxSpeed" class="value"></span>
+                </div>
+                <div id="chart">
+                    <canvas id="dilationChart" width="1200" height="500"></canvas>
+                </div>
+            </div>
+            <span id="navigationTip">&lt; total dilation &gt;</span>
+        </div>
+    </div>
+</body>
+</html>
